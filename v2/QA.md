@@ -1,6 +1,6 @@
 # Viral Studio Pro V2 — status de desenvolvimento
 
-Branch: develop-v2-studio. A produção permanece na V1.2. Não fazer merge/deploy até a aprovação de liberação.
+Publicação beta opcional autorizada pelo usuário. A entrada principal permanece na V1.2; a V2 estará em /v2/index.html. Liberação definitiva continua condicionada à homologação.
 
 ## Implementado no código
 - Núcleo modular com timeline de clipes independentes, operações imutáveis, histórico e mídias locais.
