@@ -1,6 +1,6 @@
 {
   "pack_name": "Viral Studio Pro · Master Effects Pack",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "source_document": "PACOTE COMPLETÃO — SISTEMA DE EDIÇÃO DE VÍDEO",
   "delivery": "built-in procedural engine; no paid assets or API",
   "assets": {
@@ -109,6 +109,21 @@
         "id": "bokeh",
         "name": "Bokeh Particles",
         "type": "procedural_shader"
+      },
+      {
+        "id": "lensFlare",
+        "name": "Lens Flare",
+        "type": "procedural_shader"
+      },
+      {
+        "id": "scratches",
+        "name": "Film Scratches",
+        "type": "procedural_shader"
+      },
+      {
+        "id": "vignette",
+        "name": "Vinheta cinematográfica",
+        "type": "procedural_shader"
       }
     ],
     "text_presets": [
@@ -198,12 +213,25 @@
       "multiply",
       "overlay",
       "lighter"
-    ]
+    ],
+    "chroma_key": {
+      "type": "green_screen",
+      "supported_layers": [
+        "video",
+        "image"
+      ],
+      "parameters": [
+        "enabled",
+        "strength",
+        "softness"
+      ]
+    }
   },
   "notes": [
     "GLSL shaders and procedural overlays are rendered locally by WebGL2, with a canvas fallback.",
     "Custom .cube LUTs can be imported from the Filters panel.",
     "Sound effects are synthesized locally as original WAV files.",
-    "External MP4/PNG overlay downloads mentioned in the source document were not bundled because the document contains source links and file names, not the licensed media files themselves. Users may import licensed overlays into the editor."
+    "External MP4/PNG overlay downloads mentioned in the source document were not bundled because the document contains source links and file names, not the licensed media files themselves. Users may import licensed overlays into the editor.",
+    "LUT source tables verified against supplied document; correct domain/texel sampling. Chroma key and additional procedural overlays in shared preview/export."
   ]
 }
