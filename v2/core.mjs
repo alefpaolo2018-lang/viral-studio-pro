@@ -31,7 +31,7 @@ export class History{constructor(p){this.items=[copy(validate(p))];this.index=0}
 
 export function setCaptions(p,asset,words){let q=copy(p);q.captions??={};q.captions[asset]=copy(words);return validate(q)}
 export function captionWords(p){let out=[];for(let c of spans(p)){for(let w of p.captions?.[c.asset]||[]){let a=Math.max(c.in,w.start),b=Math.min(c.out,w.end);if(b<=a)continue;let start=clamp(c.start+Math.round(progressAtSource(c,a)*c.count),c.start,c.end-1),end=clamp(c.start+Math.round(progressAtSource(c,b)*c.count),start+1,c.end);out.push({start,end,text:w.text,clip:c.id,asset:c.asset})}}return out}
-export function captionGroups(p,n=4){let groups=[],group=[];for(let w of captionWords(p)){let prev=group.at(-1);if(prev&&(group.length>=n||prev.clip!==w.clip||w.start-prev.end>p.fps*.35||w.end-group[0].start>p.fps*2.8||group.map(x=>x.text).join(' ').length+w.text.length>44)){groups.push(group);group=[]}group.push(w);if(/[.!?…]$/.test(w.text)){groups.push(group);group=[]}}if(group.length)groups.push(group);return groups}
+export function captionGroups(p,n=p.captionStyle?.groupSize||4){let groups=[],group=[];for(let w of captionWords(p)){let prev=group.at(-1);if(prev&&(group.length>=n||prev.clip!==w.clip||w.start-prev.end>p.fps*.35||w.end-group[0].start>p.fps*2.8||group.map(x=>x.text).join(' ').length+w.text.length>44)){groups.push(group);group=[]}group.push(w);if(/[.!?…]$/.test(w.text)){groups.push(group);group=[]}}if(group.length)groups.push(group);return groups}
 const captionCache=new WeakMap;
 export function captionAt(p,frame){let groups=captionCache.get(p);if(!groups){groups=captionGroups(p);captionCache.set(p,groups)}for(let i=0;i<groups.length;i++){let g=groups[i],next=groups[i+1]?.[0].start??Infinity,clipEnd=spans(p).find(x=>x.id===g[0].clip)?.end??Infinity;if(frame>=g[0].start&&frame<Math.min(clipEnd,next,g.at(-1).end+Math.round(p.fps*.16)))return {group:g,active:g.find(x=>frame>=x.start&&frame<x.end)||null,revealed:g.filter(x=>x.start<=frame)}}return null}
 export function keyframe(p,id,frame,pose){let c=spans(p).find(x=>x.id===id);if(!c||frame<c.start||frame>=c.end)throw Error('Cursor fora do clipe');let time=locate(p,frame).source,keys=(c.keyframes||[]).filter(k=>Math.abs(k.time-time)>.0001);let fields=['zoom','x','y','rotation','brightness','contrast','saturation'],k={time};for(let f of fields){let v=Number(pose[f]??c[f]);if(!Number.isFinite(v))throw Error('Propriedade inválida');k[f]=v}keys.push(k);keys.sort((a,b)=>a.time-b.time);return update(p,id,{keyframes:keys})}
@@ -41,4 +41,23 @@ export function setScript(p,text){let q=copy(p);q.script=String(text).slice(0,20
 
 export function extractAudio(p,id){let c=spans(p).find(x=>x.id===id);if(!c||c.muted)throw Error('Selecione um clipe audível.');let q=update(p,id,{muted:true}),end=c.end;if(end<=c.start)throw Error('Trecho curto demais');return addLayer(q,{kind:'audio',asset:c.asset,start:c.start,end,offset:c.in,rate:c.rate,speedRamp:c.speedRamp||'none',volume:c.volume,fade:.055})}
 export function splitSilence(p,asset,ranges){let q=copy(p);q.clips=q.clips.flatMap(c=>{if(c.asset!==asset)return[c];let cuts=ranges.map(([a,b])=>[Math.max(a,c.in),Math.min(b,c.out)]).filter(([a,b])=>b-a>=.13);return cuts.length?cuts.map(([a,b],i)=>({...clipRange(c,a,b),id:i===0?c.id:uid(),transition:i===0?c.transition:'none'})): [c]});return validate(q)}
-export function detectSpeech(samples,sr,words,duration){let step=Math.max(1,Math.round(sr*.04)),rms=[];for(let i=0;i<samples.length;i+=step){let n=0,s=0;for(let j=i;j<Math.min(i+step,samples.length);j+=4){s+=samples[j]**2;n++}rms.push(Math.sqrt(s/Math.max(1,n)))}let sort=[...rms].sort((a,b)=>a-b),peak=sort[Math.floor(sort.length*.9)]||0;if(peak<.0025)return [[0,duration]];let threshold=Math.max(.001,Math.min(.012,peak*.085)),keep=[],start=0;for(let i=0;i<rms.length;){if(rms[i]>threshold){i++;continue}let j=i;while(j<rms.length&&rms[j]<=threshold)j++;if((j-i)*.04>=.9){let a=Math.min(duration,i*.04+.25),b=Math.min(duration,j*.04-.25);if(a-start>.13)keep.push([start,a]);start=b}i=j}if(duration-start>.13)keep.push([start,duration]);for(let w of words||[])keep.push([Math.max(0,w.start-.18),Math.min(duration,w.end+.22)]);keep=keep.filter(x=>x[1]>x[0]).sort((a,b)=>a[0]-b[0]);let merged=[];for(let x of keep){let prev=merged.at(-1);if(prev&&x[0]-prev[1]<=.14)prev[1]=Math.max(prev[1],x[1]);else merged.push(x)}return merged.length&&merged.reduce((n,x)=>n+x[1]-x[0],0)>.3?merged:[[0,duration]]}
+export function detectSpeech(samples,sr,words,duration){
+  if(!samples.length||!(sr>0)||!(duration>0))return [[0,duration]];
+  const dt=.025,step=Math.max(1,Math.round(sr*dt)),levels=[];
+  for(let i=0;i<samples.length;i+=step){let sum=0,n=0;for(let j=i;j<Math.min(samples.length,i+step);j+=4){sum+=samples[j]**2;n++}levels.push(Math.sqrt(sum/Math.max(1,n)))}
+  const sorted=[...levels].sort((a,b)=>a-b),q=p=>sorted[Math.min(sorted.length-1,Math.floor(sorted.length*p))]||0,peak=q(.9),floor=q(.15);
+  const spoken=(words||[]).filter(w=>Number.isFinite(w.start)&&Number.isFinite(w.end)&&w.end>w.start&&w.start<duration);
+  if(peak<.0015||(!spoken.length&&peak<floor*2.2))return [[0,duration]];
+  const threshold=Math.max(.0007,Math.min(peak*.32,Math.max(floor*2.5,peak*.075)));
+  let quiet=levels.map(x=>x<threshold),padding=.12,keep=[],cursor=0;
+  for(let i=0;i<quiet.length;){if(!quiet[i]){i++;continue}let j=i+1;while(j<quiet.length&&quiet[j])j++;let a=i*dt,b=Math.min(duration,j*dt),edge=i===0||j===quiet.length;let min=edge?.28:spoken.length?.42:.72;
+    if(b-a>=min){let cutA=i===0?0:a+padding,cutB=j===quiet.length?duration:b-padding;
+      if(cutB>cutA){if(cutA-cursor>.08)keep.push([cursor,cutA]);cursor=Math.max(cursor,cutB)}}
+    i=j;
+  }
+  if(duration-cursor>.08)keep.push([cursor,duration]);
+  for(let w of spoken)keep.push([Math.max(0,w.start-.12),Math.min(duration,w.end+.15)]);
+  keep.sort((a,b)=>a[0]-b[0]);const merged=[];
+  for(let x of keep){if(x[1]<=x[0])continue;let prev=merged.at(-1);if(prev&&x[0]-prev[1]<.15)prev[1]=Math.max(prev[1],x[1]);else merged.push(x)}
+  return merged.length&&merged.reduce((s,x)=>s+x[1]-x[0],0)>=Math.min(.35,duration*.7)?merged:[[0,duration]];
+}

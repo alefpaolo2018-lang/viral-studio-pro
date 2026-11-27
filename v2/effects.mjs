@@ -3,7 +3,7 @@
 export const BLEND_MODES=[['source-over','Normal'],['screen','Screen · luz'],['multiply','Multiply · sombra'],['overlay','Overlay · contraste'],['lighter','Linear Dodge · adição']];
 export const VFX=[['none','Sem efeito'],['glitch','RGB Split Glitch'],['zoomBlur','Velocity Zoom Blur'],['vhs','VHS · scanlines'],['filmGrain','35mm Film Grain'],['lightLeak','Analog Light Leak'],['whipPan','Whip Pan Blur'],['inkMatte','Ink Matte'],['bokeh','Bokeh Particles'],['dust','Vintage Dust'],['lensFlare','Lens Flare'],['scratches','Film Scratches'],['vignette','Vinheta cinematográfica']];
 export const TRANSITIONS=[['none','Sem transição'],['flash','Flash'],['dip','Fade do preto'],['glitch','RGB Glitch'],['zoomBlur','Zoom Blur'],['lightLeak','Light Leak'],['whipPan','Whip Pan'],['inkMatte','Ink Matte']];
-export const TEXT_PRESETS=[['bounce_pop','Bounce Pop'],['typewriter','Typewriter'],['neon_glow','Neon Glow'],['clean','Clean Bold']];
+export const TEXT_PRESETS=[['viral_box','Viral · palavra em destaque'],['viral_punch','Viral · impacto'],['bounce_pop','Bounce Pop'],['typewriter','Typewriter'],['neon_glow','Neon Glow'],['clean','Clean Bold']];
 export const FONTS=[['Montserrat','Montserrat ExtraBold'],['Bebas Neue','Bebas Neue'],['Anton','Anton'],['Permanent Marker','Permanent Marker'],['system-ui','Sistema'],['Arial','Arial']];
 export const SFX=[['whoosh','Fast Deep Whoosh','Transition',.58],['riser','Riser Build','Build',1.25],['impact','Cinematic Bass Drop','Impact',.52],['glitch','Glitch Tech','Glitch',.42],['shutter','Camera Shutter','Foley',.18]];
 const LUT_DATA={
