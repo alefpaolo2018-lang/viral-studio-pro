@@ -1,0 +1,205 @@
+{
+  "pack_name": "Viral Studio Pro · Master Effects Pack",
+  "version": "1.0.0",
+  "source_document": "PACOTE COMPLETÃO — SISTEMA DE EDIÇÃO DE VÍDEO",
+  "delivery": "built-in procedural engine; no paid assets or API",
+  "assets": {
+    "luts": [
+      {
+        "id": "warm_vintage",
+        "name": "Warm Vintage",
+        "category": "Vintage",
+        "source": "embedded .cube data",
+        "intensity_default": 0.85
+      },
+      {
+        "id": "teal_orange",
+        "name": "Teal & Orange",
+        "category": "Cinematic",
+        "source": "embedded .cube data",
+        "intensity_default": 0.9
+      },
+      {
+        "id": "cyberpunk_neon",
+        "name": "Cyberpunk Neon",
+        "category": "Edits",
+        "source": "embedded .cube data",
+        "intensity_default": 1
+      },
+      {
+        "id": "noir_contrast",
+        "name": "Noir High Contrast",
+        "category": "B&W",
+        "source": "embedded .cube data",
+        "intensity_default": 1
+      }
+    ],
+    "transitions": [
+      {
+        "id": "glitch",
+        "name": "RGB Split Glitch",
+        "type": "glsl",
+        "shader": "glitch",
+        "duration_ms": 400
+      },
+      {
+        "id": "zoomBlur",
+        "name": "Velocity Zoom Blur",
+        "type": "glsl",
+        "shader": "zoomBlur",
+        "duration_ms": 350
+      },
+      {
+        "id": "lightLeak",
+        "name": "Analog Light Leak",
+        "type": "procedural_shader",
+        "blend_mode": "screen",
+        "duration_ms": 800
+      },
+      {
+        "id": "whipPan",
+        "name": "Whip Pan Blur",
+        "type": "glsl",
+        "duration_ms": 350
+      },
+      {
+        "id": "inkMatte",
+        "name": "Ink Matte",
+        "type": "glsl",
+        "duration_ms": 500
+      },
+      {
+        "id": "flash",
+        "name": "Flash",
+        "type": "glsl",
+        "duration_ms": 180
+      },
+      {
+        "id": "dip",
+        "name": "Fade do preto",
+        "type": "glsl",
+        "duration_ms": 220
+      }
+    ],
+    "overlays": [
+      {
+        "id": "filmGrain",
+        "name": "35mm Film Grain",
+        "type": "procedural_shader",
+        "blend_mode": "overlay",
+        "opacity": 0.35
+      },
+      {
+        "id": "dust",
+        "name": "Vintage Dust",
+        "type": "procedural_shader",
+        "blend_mode": "screen",
+        "opacity": 0.5
+      },
+      {
+        "id": "vhs",
+        "name": "VHS Retro",
+        "type": "procedural_shader"
+      },
+      {
+        "id": "bokeh",
+        "name": "Bokeh Particles",
+        "type": "procedural_shader"
+      }
+    ],
+    "text_presets": [
+      {
+        "id": "bounce_pop",
+        "name": "Bounce Pop"
+      },
+      {
+        "id": "typewriter",
+        "name": "Typewriter"
+      },
+      {
+        "id": "neon_glow",
+        "name": "Neon Glow"
+      },
+      {
+        "id": "clean",
+        "name": "Clean Bold"
+      }
+    ],
+    "sfx": [
+      {
+        "id": "whoosh",
+        "name": "Fast Deep Whoosh",
+        "category": "Transition",
+        "source": "original procedural WAV"
+      },
+      {
+        "id": "riser",
+        "name": "Riser Build",
+        "category": "Build",
+        "source": "original procedural WAV"
+      },
+      {
+        "id": "impact",
+        "name": "Cinematic Bass Drop",
+        "category": "Impact",
+        "source": "original procedural WAV"
+      },
+      {
+        "id": "glitch",
+        "name": "Glitch Tech",
+        "category": "Glitch",
+        "source": "original procedural WAV"
+      },
+      {
+        "id": "shutter",
+        "name": "Camera Shutter",
+        "category": "Foley",
+        "source": "original procedural WAV"
+      }
+    ],
+    "speed_ramps": [
+      {
+        "id": "flashOut",
+        "name": "Flash Out",
+        "description": "fast to slow",
+        "bezier": {
+          "p1": [
+            0.1,
+            0.9
+          ],
+          "p2": [
+            0.25,
+            1
+          ]
+        }
+      },
+      {
+        "id": "impactPunch",
+        "name": "Impact Punch",
+        "description": "slow to impact to slow",
+        "bezier": {
+          "p1": [
+            0.85,
+            0.05
+          ],
+          "p2": [
+            0.15,
+            0.95
+          ]
+        }
+      }
+    ],
+    "blend_modes": [
+      "screen",
+      "multiply",
+      "overlay",
+      "lighter"
+    ]
+  },
+  "notes": [
+    "GLSL shaders and procedural overlays are rendered locally by WebGL2, with a canvas fallback.",
+    "Custom .cube LUTs can be imported from the Filters panel.",
+    "Sound effects are synthesized locally as original WAV files.",
+    "External MP4/PNG overlay downloads mentioned in the source document were not bundled because the document contains source links and file names, not the licensed media files themselves. Users may import licensed overlays into the editor."
+  ]
+}
