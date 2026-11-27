@@ -17,8 +17,8 @@ Publicação beta opcional autorizada pelo usuário. A entrada principal permane
 - Teste real do editor completo em Safari/iPhone e desktop, incluindo controles de toque, persistência e exportação.
 - Verificar H.264/AAC, fontes de diferentes FPS, VFR, edit lists, arquivos sem áudio, múltiplas mídias, corte e reordenação, cancelamento, duração e sincronia labial. A verificação de 5 ms compara a mixagem codificada ao plano, não certifica sincronia labial.
 - Testar o download/inferência do Whisper e a precisão em português; revisar legendas e desempenho.
-- Exportação de velocidade com voz preservada, curvas de velocidade, 4K e 60 FPS ainda não implementados/validados na V2.
-- Isolamento de voz/música, tracking, estabilização avançada, remoção de fundo, efeitos e modelos adicionais, integração de métricas Instagram e recursos de IA generativa pendentes.
+- Curvas Flash Out e Impact Punch foram implementadas na prévia e no mixer de exportação, com o mesmo mapa de tempo para voz e imagem. Ainda precisam de homologação em Safari/iPhone e em arquivos reais, especialmente VFR, 4K e 60 FPS.
+- Isolamento avançado de voz/música, estabilização avançada, remoção de fundo, integração de métricas Instagram e recursos de IA generativa permanecem pendentes. O pacote de efeitos local descrito abaixo já foi integrado.
 - Bibliotecas comerciais, músicas licenciadas, modelos e serviços proprietários de terceiros não foram copiados. Paridade integral depende de licenciamento, permissões, implementação e homologação.
 - Não contratar serviços pagos sem autorização.
 
@@ -39,3 +39,16 @@ Não declarar homologação, sincronização labial perfeita ou paridade integra
 - Audio playback-rate regression tests added to `tests.mjs`: extracted voice layers and ordinary audio overlays retain source/output duration ratios and pass project validation at non-1× speed.
 
 - Additional verification in the tool-side harness: 17 passing checks including crop translation, voice-cleanup node graph, teaser selection, and cache-busting version.
+
+## Master Effects Pack 1.0 — integrado ao Mobile Pro 2.12
+- Quatro LUTs 3D (.cube) instaladas no projeto: Warm Vintage, Teal & Orange, Cyberpunk Neon e Noir High Contrast. O editor também aceita importar LUTs .cube próprias e guardá-las localmente.
+- Parser .cube com validação de tamanho, domínio, contagem de amostras e interpolação trilinear; WebGL2 com textura 3D e fallback por pixels quando WebGL2 não estiver disponível.
+- Shaders GLSL para RGB Split Glitch, Zoom Blur, VHS/scanlines, film grain, light leak, whip pan, ink matte, bokeh e dust; transições Flash, Dip, Glitch, Zoom Blur, Light Leak, Whip Pan e Ink Matte.
+- Blend modes Screen, Multiply, Overlay e Linear Dodge em camadas de imagem/vídeo.
+- Presets de texto/legenda Bounce Pop, Typewriter e Neon Glow; fontes Montserrat, Bebas Neue, Anton e Permanent Marker, com fallback do sistema.
+- Curvas de velocidade Flash Out e Impact Punch com curva aplicada à prévia e ao áudio exportado, preservando o mesmo relógio de origem do vídeo.
+- Biblioteca de cinco efeitos sonoros WAV sintetizados localmente (Whoosh, Riser, Impact, Glitch e Shutter); Auto Director acrescenta Whoosh original na abertura quando identifica um trecho de gancho.
+- Manifesto em v2/effects/manifest.json e quatro arquivos .cube em v2/effects/luts/. O PWA inclui cache dos novos módulos e LUTs.
+- Não foram incluídos MP4/PNG comerciais ou de terceiros citados apenas como fontes no documento do usuário: o arquivo não continha esses binários/licenças. O editor gera versões procedurais por shader e permite importar overlays licenciados pelo usuário.
+- 36 verificações no harness de integração passaram, cobrindo regressões do núcleo, parsing/interpolação de LUT, amostras das quatro LUTs, shaders, blend modes, speed ramps, áudio extraído e legendas remapeadas. Sintaxe dos módulos core, effects, renderer e studio verificada.
+- Ainda pendente: execução visual do WebGL em Safari/iOS real, gestos de toque e exportação/codificação de vídeos reais. Não declarar homologação física ou sincronização labial universal até esses testes.
