@@ -26,3 +26,10 @@ Não declarar homologação, sincronização labial perfeita ou paridade integra
 
 ## Mobile Pro 2.1
 40 verificações de integração em DOM simulado passaram: importação sem teto artificial, menus contextuais, corte, áudio vinculado, controles de qualidade, posicionamento de texto, aparagem e escala temporal. Acrescentados posteriormente miniaturas amostradas, alça de reordenação e pinça da camada; sintaxe verificada. Núcleo, mixagem e verificação de sincronização preservados. Homologação física do iPhone, gestos reais e exportação de mídia continuam pendentes.
+
+## Auto Director full pipeline
+- Added one-click pipeline: Portuguese Whisper transcription, speech-aware silence trimming, optional opening-hook teaser, remapping of existing overlay/audio layers, progressive word captions, conservative sampled exposure/contrast/saturation, per-clip transitions and subtle zoom keyframes.
+- Original video speech is extracted into synchronized audio layers (including clip playback-rate timing), original picture track is muted to prevent double audio, voice cleanup is applied as a low-memory high-pass/low-pass/compressor/adaptive expander graph in both preview and export, and imported music is automatically ducked under speech.
+- Added 13 model-level integration checks: hook selection, silence cuts, layer remapping, teaser ordering, music continuity, extracted speech tracks, duplicate-audio prevention, mixed voice/music plan, playback-rate preservation, audio-layer source bounds, caption style persistence, project validation and FPS conversion.
+- JavaScript syntax checked for studio.mjs, core.mjs and renderer.mjs. Actual device/browser media export and lip-sync still require real-device validation.
+- Limitations: no copyrighted/trending music is auto-inserted; users add a track they are licensed to use. Speech recognition requires network access to download the selected Whisper model. Automatic face/product tracking is not yet provided; landscape source framing is preserved rather than cropped blindly.
