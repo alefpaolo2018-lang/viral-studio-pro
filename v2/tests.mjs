@@ -16,6 +16,8 @@ q=C.setCaptions(q,'a',[{start:2.3,end:2.6,text:'olha'},{start:2.7,end:3,text:'is
 q=C.setCaptions(q,'b',[{start:4,end:4.3,text:'aqui'}]);assert.equal(C.captionWords(q)[0].start,9);assert.equal(C.captionWords(q).at(-1).start,180);assert.equal(C.captionAt(q,8),null);assert.equal(C.captionAt(q,19).revealed.length,1);assert.equal(C.captionWords(C.move(q,b,0))[0].text,'aqui');
 let k=C.keyframe(q,a,90,{zoom:2,x:30});let split=C.split(k,a,45);assert.ok(Math.abs(C.poseAt(split.clips[1],4).zoom-(1+2/3))<1e-6);
 let ex=C.extractAudio(q,a);assert.equal(ex.clips[0].muted,true);assert.equal(C.audioPlan(ex).filter(x=>x.asset==='a').length,1);
+let fast=C.update(q,a,{rate:1.5});let fastAudio=C.extractAudio(fast,a);let fastTrack=C.audioPlan(fastAudio).find(x=>x.asset==='a');assert.equal(fastTrack.rate,1.5);assert.ok(Math.abs(fastTrack.duration-(fastTrack.outputDuration*1.5))<.04);assert.equal(C.validate(fastAudio),fastAudio);
+let overlayAudio=C.addLayer(q,{kind:'audio',asset:'a',start:0,end:90,offset:0,rate:1.5,volume:.7,fade:.1});assert.equal(C.audioPlan(overlayAudio).find(x=>x.asset==='a').rate,1.5);assert.equal(C.validate(overlayAudio),overlayAudio);
 assert.throws(()=>C.trim(q,a,0,99));assert.throws(()=>C.addLayer(q,{kind:'video',asset:'b',start:0,end:3000,offset:0}));assert.throws(()=>C.setCaptions(q,'a',[{start:1,end:2,text:'a'},{start:1.5,end:3,text:'b'}]));
 assert.ok(srt(q,C.captionGroups(q)).includes('00:00:00,300'));assert.equal(parseWords('0.1 | 0.4 | promoção',1)[0].text,'promoção');
 console.log('V2: testes de núcleo aprovados.');
