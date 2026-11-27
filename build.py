@@ -23,4 +23,5 @@ def icon(n):
     data=b"\x89PNG\r\n\x1a\n"+chunk(b"IHDR",struct.pack(">IIBBBBB",n,n,8,2,0,0,0))+chunk(b"IDAT",zlib.compress(b"".join(rows)))+chunk(b"IEND",b"")
     (out/f"icon-{n}.png").write_bytes(data)
 for n in (192,512): icon(n)
-print("Viral Studio Pro v0.6: static assets ready")
+shutil.copytree("v2",out/"v2",dirs_exist_ok=True,ignore=shutil.ignore_patterns("tests.mjs","QA.md"))
+print("Viral Studio Pro development: legacy and modular V2 assets ready")
