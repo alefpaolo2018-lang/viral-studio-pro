@@ -1,7 +1,7 @@
-import * as C from './core.mjs';
-import {recognize,parseWords,serialize,srt} from './captions.mjs';
-import {readMedia,MediaPool,loadVideo,seekVideo,preloadImages,seekLayers,pauseLayers,playLayers,paint,renderMP4,decodeAsset,connectVoiceCleanup} from './renderer.mjs';
-import {BLEND_MODES,VFX,TRANSITIONS,TEXT_PRESETS,FONTS,SFX,SPEED_RAMPS,lutOptions,loadCustomLuts,parseCube,saveCustomLut,makeSfxFile,speedRateCurve} from './effects.mjs';
+import * as C from './core.mjs?v=212';
+import {recognize,parseWords,serialize,srt} from './captions.mjs?v=212';
+import {readMedia,MediaPool,loadVideo,seekVideo,preloadImages,seekLayers,pauseLayers,playLayers,paint,renderMP4,decodeAsset,connectVoiceCleanup} from './renderer.mjs?v=212';
+import {BLEND_MODES,VFX,TRANSITIONS,TEXT_PRESETS,FONTS,SFX,SPEED_RAMPS,lutOptions,loadCustomLuts,parseCube,saveCustomLut,makeSfxFile,speedRateCurve} from './effects.mjs?v=212';
 const $=id=>document.getElementById(id),canvas=$('preview'),video=document.createElement('video');
 video.playsInline=true;video.preload='auto';video.style.cssText='position:fixed;left:0;bottom:0;width:2px;height:2px;opacity:.001;pointer-events:none';document.body.append(video);
 let state=C.project(),history=new C.History(state),files=new Map,pool=new MediaPool(files),frame=0,selected='',layerId='',zoom=1,playing=false,busy=false,token=0,queue=Promise.resolve(),controller=null,panelTab='',resultURL='',audioCtx=null,extraNodes=[],replaceId='';
