@@ -53,3 +53,6 @@ Não declarar homologação, sincronização labial perfeita ou paridade integra
 - 36 verificações no harness de integração passaram, cobrindo regressões do núcleo, parsing/interpolação de LUT, amostras das quatro LUTs, shaders, blend modes, speed ramps, áudio extraído e legendas remapeadas. Mais 19 verificações finais passaram para a integral das curvas de áudio, schema, cache PWA e imports. Sintaxe dos módulos core, effects, renderer, studio e testes verificada.
 - O gate adaptativo de limpeza de voz agora agenda a automação usando o mesmo mapa variável de tempo, evitando deslocar a redução de ruído durante os presets de velocidade.
 - Ainda pendente: execução visual do WebGL em Safari/iOS real, gestos de toque e exportação/codificação de vídeos reais. Não declarar homologação física ou sincronização labial universal até esses testes.
+
+## Master Effects 1.1 / Mobile Pro 2.13
+24 novas verificações de dados e integração estática aprovadas, incluindo comparação das quatro LUTs com o documento original, arquivos WAV sintetizados (Blob simulado), opções de interface e proteção contra repetição da automação. Corrigida interpolação WebGL, domínio das LUTs, intensidade zero e fallback Canvas; adicionados lens flare, scratches, vinheta, chroma key e SFX automáticos. Não são testes de execução em Safari nem de exportação real.
