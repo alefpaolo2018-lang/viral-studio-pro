@@ -30,10 +30,12 @@ Não declarar homologação, sincronização labial perfeita ou paridade integra
 ## Auto Director full pipeline
 - Added one-click pipeline: Portuguese Whisper transcription, speech-aware silence trimming, optional opening-hook teaser, remapping of existing overlay/audio layers, progressive word captions, conservative sampled exposure/contrast/saturation, per-clip transitions and subtle zoom keyframes.
 - Original video speech is extracted into synchronized audio layers (including clip playback-rate timing), original picture track is muted to prevent double audio, voice cleanup is applied as a low-memory high-pass/low-pass/compressor/adaptive expander graph in both preview and export, and imported music is automatically ducked under speech.
-- Added 16 model-level integration checks: hook selection, silence cuts, layer remapping, teaser ordering, music continuity, extracted speech tracks, duplicate-audio prevention, mixed voice/music plan, playback-rate preservation, audio-layer source bounds, caption style persistence, project validation and FPS conversion.
+- Added 17 model-level integration checks: hook selection, silence cuts, layer remapping, teaser ordering, music continuity, extracted speech tracks, duplicate-audio prevention, mixed voice/music plan, playback-rate preservation, audio-layer source bounds, caption style persistence, project validation and FPS conversion.
 - JavaScript syntax checked for studio.mjs, core.mjs and renderer.mjs. Actual device/browser media export and lip-sync still require real-device validation.
 - Limitations: no copyrighted/trending music is auto-inserted; users add a track they are licensed to use. Speech recognition requires network access to download the selected Whisper model. Optional on-device MediaPipe face and common-object tracking is attempted for vertical reframing; availability and detections depend on browser/device performance. If tracking is unavailable, landscape framing is preserved rather than cropped blindly.
 
 - Added optional MediaPipe face/object detection on sampled frames, smoothed subject centers, and keyframed crop position for vertical 9:16 reframing when a presenter or supported object is detected.
 
 - Audio playback-rate regression tests added to `tests.mjs`: extracted voice layers and ordinary audio overlays retain source/output duration ratios and pass project validation at non-1× speed.
+
+- Additional verification in the tool-side harness: 17 passing checks including crop translation, voice-cleanup node graph, teaser selection, and cache-busting version.
