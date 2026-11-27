@@ -23,3 +23,6 @@ Publicação beta opcional autorizada pelo usuário. A entrada principal permane
 - Não contratar serviços pagos sem autorização.
 
 Não declarar homologação, sincronização labial perfeita ou paridade integral enquanto estes requisitos não forem atendidos.
+
+## Mobile Pro 2.1
+40 verificações de integração em DOM simulado passaram: importação sem teto artificial, menus contextuais, corte, áudio vinculado, controles de qualidade, posicionamento de texto, aparagem e escala temporal. Acrescentados posteriormente miniaturas amostradas, alça de reordenação e pinça da camada; sintaxe verificada. Núcleo, mixagem e verificação de sincronização preservados. Homologação física do iPhone, gestos reais e exportação de mídia continuam pendentes.
