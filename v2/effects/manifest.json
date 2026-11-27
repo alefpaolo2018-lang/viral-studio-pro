@@ -10,28 +10,32 @@
         "name": "Warm Vintage",
         "category": "Vintage",
         "source": "embedded .cube data",
-        "intensity_default": 0.85
+        "intensity_default": 0.85,
+        "file": "effects/luts/warm_vintage.cube"
       },
       {
         "id": "teal_orange",
         "name": "Teal & Orange",
         "category": "Cinematic",
         "source": "embedded .cube data",
-        "intensity_default": 0.9
+        "intensity_default": 0.9,
+        "file": "effects/luts/teal_orange.cube"
       },
       {
         "id": "cyberpunk_neon",
         "name": "Cyberpunk Neon",
         "category": "Edits",
         "source": "embedded .cube data",
-        "intensity_default": 1
+        "intensity_default": 1,
+        "file": "effects/luts/cyberpunk_neon.cube"
       },
       {
         "id": "noir_contrast",
         "name": "Noir High Contrast",
         "category": "B&W",
         "source": "embedded .cube data",
-        "intensity_default": 1
+        "intensity_default": 1,
+        "file": "effects/luts/noir_contrast.cube"
       }
     ],
     "transitions": [
