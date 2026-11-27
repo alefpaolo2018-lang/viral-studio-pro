@@ -3,8 +3,10 @@ from pathlib import Path
 import shutil, struct, zlib
 out=Path("dist")
 out.mkdir(exist_ok=True)
-for name in ("index.html","manifest.webmanifest","sw.js"):
+for name in ("manifest.webmanifest","sw.js"):
     shutil.copyfile(name,out/name)
+shutil.copyfile("index.html",out/"legacy.html")
+(out/"index.html").write_text("""<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Viral Studio Pro</title><meta http-equiv="refresh" content="0;url=./v2/index.html?v=218"><a href="./v2/index.html?v=218">Abrir Viral Studio Pro</a><script>location.replace('./v2/index.html?v=218')</script></html>""",encoding="utf-8")
 # Generate the green app mark in both required PWA sizes.
 def chunk(tag, data):
     return struct.pack(">I",len(data))+tag+data+struct.pack(">I",zlib.crc32(tag+data)&0xffffffff)
